@@ -30,8 +30,9 @@ if check == False:
         st.success(f"File '{file_name}' is saved successfully!")
         check = True
 if check == True:
-    st.write('Model: ',file_name)
+    
     path = './model/model_Ner1/modelsave/'+file_name
+    st.write('Path: ',path)
     text = st.text_input('Nhập văn bản', '', max_chars=3000)
     y_predicts =  text_to_token([text],path)
     y_predicts_list = []
