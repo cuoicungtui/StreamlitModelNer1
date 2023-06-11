@@ -8,29 +8,26 @@ import pandas as pd
 from io import StringIO
 import os
 
-check = False
-file_list = os.listdir('./model/model_Ner1/modelsave/')
-if len(file_list) > 1:
-    check = True
-    file_name = file_list[1]
-st.title('Medical NER')
-if check == False:
-    uploaded_file = st.file_uploader("Load_model",type=["h5"])
+# check = False
+# file_list = os.listdir('./model/model_Ner1/modelsave/')
+# if len(file_list) > 1:
+#     check = True
+#     file_name = file_list[1]
+# st.title('Medical NER')
+# if check == False:
+uploaded_file = st.file_uploader("Load_model",type=["h5"])
 
-    if uploaded_file is not None and check == False:
-        # To read file as bytes:
-        bytes_data = uploaded_file.getvalue()
-        st.write(bytes_data)
+if uploaded_file is not None :
+    # To read file as bytes:
+    bytes_data = uploaded_file.getvalue()
+    st.write(bytes_data)
 
-        file_name = uploaded_file.name
-        save_path = os.path.join("./model/model_Ner1/modelsave/", file_name)
-        with open(save_path, "wb") as f:
-            f.write(uploaded_file.getbuffer())
+    file_name = uploaded_file.name
+    save_path = os.path.join("./model/model_Ner1/modelsave/", file_name)
+    with open(save_path, "wb") as f:
+        f.write(uploaded_file.getbuffer())
 
-        st.success(f"File '{file_name}' is saved successfully!")
-        check = True
-if check == True:
-    
+    st.success(f"File '{file_name}' is saved successfully!")
     path = './model/model_Ner1/modelsave/'+file_name
     st.write('Path: ',path)
     text = st.text_input('Nhập văn bản', '', max_chars=3000)
