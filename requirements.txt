@@ -6,3 +6,4 @@ transformers
 keras
 tensorflow
 torch==2.0.0
+h5py==3.8.0
