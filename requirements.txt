@@ -1,8 +1,8 @@
-numpy
+numpy== 1.23.5
 pandas
 requests
 st-annotated-text
 transformers
 keras
 tensorflow
-
+torch==2.0.0
