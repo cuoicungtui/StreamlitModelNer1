@@ -15,7 +15,7 @@ if len(file_list) > 1:
     file_name = file_list[1]
 st.title('Medical NER')
 if check == False:
-    uploaded_file = st.file_uploader("Load_model",type=["py", "h5"])
+    uploaded_file = st.file_uploader("Load_model",type=["h5"])
 
     if uploaded_file is not None and check == False:
         # To read file as bytes:
@@ -30,6 +30,7 @@ if check == False:
         st.success(f"File '{file_name}' is saved successfully!")
         check = True
 if check == True:
+    st.write('Model: ',file_name)
     path = './model/model_Ner1/modelsave/'+file_name
     text = st.text_input('Nhập văn bản', '', max_chars=3000)
     y_predicts =  text_to_token([text],path)
