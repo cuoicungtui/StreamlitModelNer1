@@ -8,7 +8,7 @@ import pandas as pd
 from io import StringIO
 import os
 
-st.title('Medical NER')
+st.title('Medical Named Entity Recognition')
 
 # check = False
 # file_list = os.listdir('./model/model_Ner1/modelsave/')
@@ -36,7 +36,7 @@ st.title('Medical NER')
 # if check == True:
 # path = './model/model_Ner1/modelsave/'+file_name
 # st.write('Path model : ',path)
-text = st.text_input('Nhập văn bản', '', max_chars=3000)
+text = st.text_input('Nhập câu nói ', '', max_chars=3000)
 y_predicts =  text_to_token([text])
 y_predicts_list = []
 for y_pre in y_predicts['taget']:
