@@ -37,15 +37,31 @@ def word_id_pad(word_id):
     lb = tf.convert_to_tensor(np.array(label_id))
     return lb
 
+# path_model_json = './model/model_Ner1/modelsave/modeljson1/model.json'
+# path_weight_h5  = './model/model_Ner1/modelsave/modeljson1/model.h5'
 
-# path = './modelsave/model_Ner.h5'
+def load_model_json(path_model_json,path_weight_h5):
 
-def text_to_token(text,path):
+    # load model json
+    with open(path_model_json, 'r') as f:
+        model_json = f.read()
+        loaded_model = keras.models.model_from_json(model_json)
 
-    custom_objects = {'CustomCrossEntropy': CustomCrossEntropy}
-    with keras.utils.custom_object_scope(custom_objects):
-        model = keras.models.load_model(path)
+    # load weights into new model
+    loaded_model.load_weights(path_weight_h5)
 
+    return loaded_model
+
+
+def text_to_token(text):
+
+    # custom_objects = {'CustomCrossEntropy': CustomCrossEntropy}
+    # with keras.utils.custom_object_scope(custom_objects):
+    #     model = keras.models.load_model(path)
+    path_model_json = './model/model_Ner1/modelsave/modeljson1/model.json'
+    path_weight_h5  = './model/model_Ner1/modelsave/modeljson1/weights_ner.h5'
+
+    model = load_model_json(path_model_json,path_weight_h5)
 
     tokenizer = BertTokenizerFast.from_pretrained('./model/model_Ner1/tokenizer', do_lower_case=True)
     texts = text[0].split('.')
