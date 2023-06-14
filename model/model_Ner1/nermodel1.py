@@ -5,8 +5,12 @@ from tensorflow import keras
 from keras.losses import Loss
 import tensorflow as tf
 import numpy as np
+from dotenv import dotenv_values
 
-n_tags = 5
+# Đọc các biến môi trường từ file .env
+env_variables = dotenv_values('.env')
+
+n_tags = int(env_variables['N_TAGs'])
 
 class CustomCrossEntropy(Loss):
     def __init__(self,reduction=keras.losses.Reduction.AUTO ,name='custom_cross_entropy'):
@@ -58,12 +62,17 @@ def text_to_token(text):
     # custom_objects = {'CustomCrossEntropy': CustomCrossEntropy}
     # with keras.utils.custom_object_scope(custom_objects):
     #     model = keras.models.load_model(path)
-    path_model_json = './model/model_Ner1/modelsave/modeljson1/model.json'
-    path_weight_h5  = './model/model_Ner1/modelsave/modeljson1/weights_ner.h5'
+    # path_model_json = './model/model_Ner1/modelsave/modeljson1/model.json'
+    # path_weight_h5  = './model/model_Ner1/modelsave/modeljson1/weights_ner.h5'
+
+    path_model_json = env_variables['PATH_MODEL_JSON']
+    path_weight_h5  = env_variables['PATH_WEIGHT_H5']
 
     model = load_model_json(path_model_json,path_weight_h5)
 
-    tokenizer = BertTokenizerFast.from_pretrained('./model/model_Ner1/tokenizer', do_lower_case=True)
+    path_tokenizer = env_variables['PATH_TOKENIZER']
+
+    tokenizer = BertTokenizerFast.from_pretrained(path_tokenizer, do_lower_case=True)
     texts = text[0].split('.')
     # texts = [text+'.' for text in texts if text != '']
 

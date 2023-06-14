@@ -19,7 +19,7 @@ class dataMongo:
             client = MongoClient(self.path_atlas)
             db = client['AIDATA']
             collection = db['data1']
-            print("Kết nối thành công tới MongoDB Atlas")
+            # print("Kết nối thành công tới MongoDB Atlas")
             return collection
         except Exception as e:
             print("Lỗi khi kết nối tới MongoDB Atlas:", e)
@@ -28,15 +28,9 @@ class dataMongo:
         try:
             data = {'Sequence':data}
             self.collection.insert_one(data)
-            print("Insert data thành công vào MongoDB Atlas")
+            # print("Insert data thành công vào MongoDB Atlas")
         except Exception as e:
             print("Lỗi khi insert data vào MongoDB Atlas:", e)
     def find(self, data):
         return self.collection.find(data)
     
-# path_atlas = "mongodb+srv://cuoicungtui:6V0lb3R2MnFKH6op@cluster0.kte4zsw.mongodb.net/"
-# dataMongo = dataMongo(path_atlas)  
-
-# dataMongo.insert('hello')
-
-# collection = connect_mongo(path_atlas)
