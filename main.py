@@ -1,7 +1,7 @@
 import streamlit as st
 
 from annotated_text import annotated_text
-
+from model.model_Ner1.database.connect_mongo import dataMongo
 from model.model_Ner1.nermodel1 import text_to_token
 import streamlit as st
 import pandas as pd
@@ -9,34 +9,12 @@ from io import StringIO
 import os
 
 st.title('Medical Named Entity Recognition')
-
-# check = False
-# file_list = os.listdir('./model/model_Ner1/modelsave/')
-# if len(file_list) > 1:
-#     check = True
-#     file_name = file_list[1]
-
-# if check == False:
-#     uploaded_file = st.file_uploader("Load_model",type=["h5"])
-
-#     if uploaded_file is not None :
-#         # To read file as bytes:
-#         bytes_data = uploaded_file.getvalue()
-#         st.write(bytes_data)
-
-#         file_name = uploaded_file.name
-#         save_path = os.path.join("./model/model_Ner1/modelsave/", file_name)
-#         with open(save_path, "wb") as f:
-#             f.write(uploaded_file.getbuffer())
-
-#         st.success(f"File '{file_name}' is saved successfully!")
-
-#         check = True
-
-# if check == True:
-# path = './model/model_Ner1/modelsave/'+file_name
-# st.write('Path model : ',path)
 text = st.text_input('Nhập câu nói ', '', max_chars=3000)
+
+path_atlas = 'mongodb+srv://cuoicungtui:6V0lb3R2MnFKH6op@cluster0.kte4zsw.mongodb.net/'
+dataMongo = dataMongo(path_atlas)
+dataMongo.insert(text)
+
 y_predicts =  text_to_token([text])
 y_predicts_list = []
 for y_pre in y_predicts['taget']:
