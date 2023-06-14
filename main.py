@@ -13,7 +13,8 @@ text = st.text_input('Nhập câu nói ', '', max_chars=3000)
 # path_atlas = 'mongodb+srv://cuoicungtui:6V0lb3R2MnFKH6op@cluster0.kte4zsw.mongodb.net/'
 path_atlas = os.environ.get('SRV_MONGO')
 datamongo = dataMongo(path_atlas)
-datamongo.insert(text)
+if len(text) > 0:
+    datamongo.insert(text)
 
 y_predicts =  text_to_token([text])
 y_predicts_list = []
