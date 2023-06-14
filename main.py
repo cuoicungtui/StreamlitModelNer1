@@ -1,8 +1,7 @@
 import streamlit as st
-
 from annotated_text import annotated_text
-from model.model_Ner1.database.connect_mongo import dataMongo
 from model.model_Ner1.nermodel1 import text_to_token
+from model.model_Ner1.database.connect_mongo import dataMongo
 import streamlit as st
 import pandas as pd
 from io import StringIO
@@ -12,8 +11,8 @@ st.title('Medical Named Entity Recognition')
 text = st.text_input('Nhập câu nói ', '', max_chars=3000)
 
 path_atlas = 'mongodb+srv://cuoicungtui:6V0lb3R2MnFKH6op@cluster0.kte4zsw.mongodb.net/'
-dataMongo = dataMongo(path_atlas)
-dataMongo.insert(text)
+datamongo = dataMongo(path_atlas)
+datamongo.insert(text)
 
 y_predicts =  text_to_token([text])
 y_predicts_list = []
