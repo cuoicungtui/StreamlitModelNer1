@@ -6,12 +6,19 @@ import streamlit as st
 import pandas as pd
 from io import StringIO
 import os
+from dotenv import dotenv_values
+
+# Đọc các biến môi trường từ file .env
+env_variables = dotenv_values('.env')
+
 
 st.title('Medical Named Entity Recognition')
 text = st.text_input('Nhập câu nói ', '', max_chars=3000)
 
 # path_atlas = 'mongodb+srv://cuoicungtui:6V0lb3R2MnFKH6op@cluster0.kte4zsw.mongodb.net/'
-path_atlas = os.environ.get('SRV_MONGO')
+# path_atlas = os.environ.get('SRV_MONGO')
+path_atlas = env_variables['SRV_MONGO']
+
 datamongo = dataMongo(path_atlas)
 if len(text) > 0:
     datamongo.insert(text)
