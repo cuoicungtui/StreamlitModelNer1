@@ -95,10 +95,7 @@ def text_to_token(text):
         label = np.array(label_ids[i][0])
         for j in range(len(label)):
             taget.append(str(seq[j])+' '+ idx_taget[label[j]])
-        # taget.append(label)
         taglist.append(taget)
-    # taglist.append(y_preds)   
-    # taglist.append(label_ids)    
     return{
         'taget':taglist
     }
