@@ -8,13 +8,14 @@ import pandas as pd
 from io import StringIO
 import os
 from dotenv import dotenv_values
-
+import nltk
+nltk.download('punkt')
 # Đọc các biến môi trường từ file .env
 env_variables = dotenv_values('.env')
 
 
 st.title('Medical Named Entity Recognition')
-# text = st.text_input('Nhập câu nói ', '', max_chars=3000)
+
 tab1, tab2 = st.tabs(['EXAMPLE', 'PREDICT'])
 
 with tab1:
@@ -36,10 +37,14 @@ with tab1:
 
 with tab2:
     text =  st.text_area('Enter your text', '', height=200)
+    # text = st.text_input('Nhập câu nói ', '', max_chars=3000)
     # path_atlas = env_variables['SRV_PY_MONGO']
     # datamongo = dataMongo(path_atlas)
     # if len(text) > 0:
     #     datamongo.insert(text)
+    if len(text) > 0:
+        texts = nltk.word_tokenize(text)
+        text = ' '.join(texts)
     y_predicts =  text_to_token([text])
     y_predicts_list = []
     for y_pre in y_predicts['taget']:
